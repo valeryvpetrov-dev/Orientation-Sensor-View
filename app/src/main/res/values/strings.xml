@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">GeekBrains.Android.Level-2</string>
+
+    <string name="activity_main_label">Lesson 2</string>
+
+    <string name="content_orientation_title">Orientation (degrees)</string>
+    <string name="content_gyroscope_title">Gyroscope (rad/s)</string>
+    <string name="content_accelerometer_title">Accelerometer (m/s^2)</string>
+
+    <string name="x_axis_label">X axis:</string>
+    <string name="y_axis_label">Y axis:</string>
+    <string name="z_axis_label">Z axis:</string>
 </resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill_horizontal"
+        android:gravity="center"
+        android:text="@string/content_gyroscope_title" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_columnWeight="1"
+        android:text="@string/x_axis_label" />
+
+    <TextView
+        android:id="@+id/gyro_x_axis"
+        android:layout_width="0dp"
+        android:layout_columnWeight="1" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_columnWeight="1"
+        android:text="@string/y_axis_label" />
+
+    <TextView
+        android:id="@+id/gyro_y_axis"
+        android:layout_width="0dp"
+        android:layout_columnWeight="1" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_columnWeight="1"
+        android:text="@string/z_axis_label" />
+
+    <TextView
+        android:id="@+id/gyro_z_axis"
+        android:layout_width="0dp"
+        android:layout_columnWeight="1" />
+</GridLayout>
