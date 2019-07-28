@@ -16,18 +16,18 @@
             android:padding="16dp">
 
             <include
-                android:id="@+id/content_orientation"
+                android:id="@+id/layout_content_orientation"
                 layout="@layout/content_orientation" />
 
             <include
-                android:id="@+id/content_gyroscope"
+                android:id="@+id/layout_content_gyroscope"
                 layout="@layout/content_gyroscope"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
             <include
-                android:id="@+id/content_accelerometer"
+                android:id="@+id/layout_content_accelerometer"
                 layout="@layout/content_accelerometer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

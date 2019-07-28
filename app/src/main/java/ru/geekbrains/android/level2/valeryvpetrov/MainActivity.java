@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ((TextView) findViewById(R.id.orientation_x_axis)).setText(String.valueOf(xAngle));
         ((TextView) findViewById(R.id.orientation_y_axis)).setText(String.valueOf(yAngle));
         ((TextView) findViewById(R.id.orientation_z_axis)).setText(String.valueOf(zAngle));
+
+        ((CoordinateFrameView) findViewById(R.id.view_orientation)).setAngleXAxis(xAngle);
     }
 
     @Override
