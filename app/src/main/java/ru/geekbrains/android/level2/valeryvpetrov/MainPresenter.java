@@ -56,9 +56,9 @@ public class MainPresenter {
                 @Override
                 public void onSensorChanged(SensorEvent sensorEvent) {
                     // round value to 2 decimal points
-                    float xAngle = (float) Math.round(sensorEvent.values[0] * 100) / 100;
-                    float yAngle = (float) Math.round(sensorEvent.values[1] * 100) / 100;
-                    float zAngle = (float) Math.round(sensorEvent.values[2] * 100) / 100;
+                    float xAngle = roundFloat(sensorEvent.values[0]);
+                    float yAngle = roundFloat(sensorEvent.values[1]);
+                    float zAngle = roundFloat(sensorEvent.values[2]);
 
                     view.updateOrientationSensorDataChanged(xAngle, yAngle, zAngle);
                 }
@@ -73,9 +73,9 @@ public class MainPresenter {
                 @Override
                 public void onSensorChanged(SensorEvent sensorEvent) {
                     // round value to 2 decimal points
-                    float xRotationRate = (float) Math.round(sensorEvent.values[0] * 100) / 100;
-                    float yRotationRate = (float) Math.round(sensorEvent.values[1] * 100) / 100;
-                    float zRotationRate = (float) Math.round(sensorEvent.values[2] * 100) / 100;
+                    float xRotationRate = roundFloat(sensorEvent.values[0]);
+                    float yRotationRate = roundFloat(sensorEvent.values[1]);
+                    float zRotationRate = roundFloat(sensorEvent.values[2]);
 
                     view.updateGyroSensorDataChanged(xRotationRate, yRotationRate, zRotationRate);
                 }
@@ -90,9 +90,9 @@ public class MainPresenter {
                 @Override
                 public void onSensorChanged(SensorEvent sensorEvent) {
                     // round value to 2 decimal points
-                    float xAcceleration = (float) Math.round(sensorEvent.values[0] * 100) / 100;
-                    float yAcceleration = (float) Math.round(sensorEvent.values[1] * 100) / 100;
-                    float zAcceleration = (float) Math.round(sensorEvent.values[2] * 100) / 100;
+                    float xAcceleration = roundFloat(sensorEvent.values[0]);
+                    float yAcceleration = roundFloat(sensorEvent.values[1]);
+                    float zAcceleration = roundFloat(sensorEvent.values[2]);
 
                     view.updateAccelerationSensorDataChanged(xAcceleration, yAcceleration, zAcceleration);
                 }
@@ -102,5 +102,9 @@ public class MainPresenter {
                 }
             };
         }
+    }
+
+    private float roundFloat(float value) {
+        return (float) Math.round(value * 100) / 100;
     }
 }
