@@ -15,15 +15,15 @@ public class CoordinateFrameView extends View {
      * Android View class for representation of coordinate frame.
      * ! Works only with X axis rotation.
      */
-    private static final int AXIS_LENGTH = 300;
-    private static final int AXIS_STROKE_WIDTH = 6;
+    private int axisLength = 300;
+    private int axisStrokeWidth = 6;
 
-    private static final int AXIS_TEXT_SIZE = 50;
-    private static final int AXIS_TEXT_V_OFFSET = (int) (AXIS_TEXT_SIZE * 1.5);
-    private static final int AXIS_TEXT_H_OFFSET = AXIS_LENGTH;
+    private int axisTextSize = 50;
+    private int axisTextVOffset = (int) (axisTextSize * 1.5);
+    private int axisTextHOffset = axisLength;
 
     private static final int AXIS_ARROW_ANGLE = 60; // measured in degrees
-    private static final int AXIS_ARROW_LENGTH = AXIS_LENGTH / 8;
+    private int axisArrowLength = axisLength / 8;
 
     private Paint paintXAxis;
     private Path pathXAxis;
@@ -81,9 +81,9 @@ public class CoordinateFrameView extends View {
 
     private void configureAxisPaint(Paint paintAxis, int colorAxis) {
         paintAxis.setColor(colorAxis);
-        paintAxis.setStrokeWidth(AXIS_STROKE_WIDTH);
+        paintAxis.setStrokeWidth(axisStrokeWidth);
         paintAxis.setStyle(Paint.Style.STROKE);
-        paintAxis.setTextSize(AXIS_TEXT_SIZE);
+        paintAxis.setTextSize(axisTextSize);
     }
 
     @Override
@@ -92,7 +92,22 @@ public class CoordinateFrameView extends View {
         viewHeight = bottom;
         centerScreenX = Math.abs(left - right) / 2;
         centerScreenY = Math.abs(top - bottom) / 2;
+
+        configureAxisMetrics(viewWidth, viewHeight);
+
         super.onLayout(changed, left, top, right, bottom);
+    }
+
+    private void configureAxisMetrics(int viewWidth, int viewHeight) {
+        if (viewWidth < viewHeight)
+            axisLength = viewWidth / 3;
+        else
+            axisLength = viewHeight / 3;
+
+        axisTextSize = axisLength / 6;
+        axisTextVOffset = (int) (axisTextSize * 1.5);
+        axisTextHOffset = axisLength;
+        axisArrowLength = axisLength / 8;
     }
 
     @Override
@@ -129,7 +144,7 @@ public class CoordinateFrameView extends View {
         drawAxisArrow(canvas, paintAxis, pinXofAxis, pinYofAxis, angleReprAxis); // draws axis arrow
         canvas.drawTextOnPath(axisLabel,    // draws axis label
                 pathAxis,
-                AXIS_TEXT_H_OFFSET, AXIS_TEXT_V_OFFSET,
+                axisTextHOffset, axisTextVOffset,
                 paintAxis);
     }
 
@@ -169,10 +184,10 @@ public class CoordinateFrameView extends View {
 
             pinXofYAxis = centerScreenX
                     + (int) (Math.cos(Math.toRadians(angleXAxis))
-                    * AXIS_LENGTH);
+                    * axisLength);
             pinYofYAxis = centerScreenY
                     + (int) (Math.sin(Math.toRadians(angleXAxis))
-                    * AXIS_LENGTH);
+                    * axisLength);
 
             pathYAxis.moveTo(centerScreenX, centerScreenY);
             pathYAxis.lineTo(pinXofYAxis, pinYofYAxis);
@@ -192,10 +207,10 @@ public class CoordinateFrameView extends View {
 
             pinXofZAxis = centerScreenX
                     + (int) (Math.cos(Math.toRadians(angleXAxis) + Math.PI / 2)
-                    * AXIS_LENGTH);
+                    * axisLength);
             pinYofZAxis = centerScreenY
                     + (int) (Math.sin(Math.toRadians(angleXAxis) + Math.PI / 2)
-                    * AXIS_LENGTH);
+                    * axisLength);
 
             pathZAxis.moveTo(centerScreenX, centerScreenY);
             pathZAxis.lineTo(pinXofZAxis, pinYofZAxis);
@@ -210,7 +225,7 @@ public class CoordinateFrameView extends View {
                                float angleReprAxis) {
         if (pinXofAxis == centerScreenX && pinYofAxis == centerScreenY) {   // directs out of screen upwards
             // draws cross
-            int crossLength = AXIS_ARROW_LENGTH / 2;
+            int crossLength = axisArrowLength / 2;
             canvas.drawLine(
                     pinXofAxis - crossLength, pinYofAxis - crossLength,
                     pinXofAxis + crossLength, pinYofAxis + crossLength,
@@ -223,13 +238,13 @@ public class CoordinateFrameView extends View {
             // draws arrow related to axis
             canvas.drawLine(
                     pinXofAxis, pinYofAxis,
-                    pinXofAxis + (int) (Math.cos(Math.toRadians(angleReprAxis + 90 + AXIS_ARROW_ANGLE)) * AXIS_ARROW_LENGTH),
-                    pinYofAxis + (int) (Math.sin(Math.toRadians(angleReprAxis + 90 + AXIS_ARROW_ANGLE)) * AXIS_ARROW_LENGTH),
+                    pinXofAxis + (int) (Math.cos(Math.toRadians(angleReprAxis + 90 + AXIS_ARROW_ANGLE)) * axisArrowLength),
+                    pinYofAxis + (int) (Math.sin(Math.toRadians(angleReprAxis + 90 + AXIS_ARROW_ANGLE)) * axisArrowLength),
                     paintAxis);
             canvas.drawLine(
                     pinXofAxis, pinYofAxis,
-                    pinXofAxis + (int) (Math.cos(Math.toRadians(angleReprAxis - 90 - AXIS_ARROW_ANGLE)) * AXIS_ARROW_LENGTH),
-                    pinYofAxis + (int) (Math.sin(Math.toRadians(angleReprAxis - 90 - AXIS_ARROW_ANGLE)) * AXIS_ARROW_LENGTH),
+                    pinXofAxis + (int) (Math.cos(Math.toRadians(angleReprAxis - 90 - AXIS_ARROW_ANGLE)) * axisArrowLength),
+                    pinYofAxis + (int) (Math.sin(Math.toRadians(angleReprAxis - 90 - AXIS_ARROW_ANGLE)) * axisArrowLength),
                     paintAxis);
         }
     }
