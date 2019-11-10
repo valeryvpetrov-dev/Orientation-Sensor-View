@@ -236,16 +236,6 @@ public class CoordinateFrameView extends View {
                     paintAxis);
         } else {    // lays on plane
             // draws arrow related to axis
-            canvas.drawLine(
-                    pinXofAxis, pinYofAxis,
-                    pinXofAxis + (int) (Math.cos(Math.toRadians(angleReprAxis + 90 + AXIS_ARROW_ANGLE)) * axisArrowLength),
-                    pinYofAxis + (int) (Math.sin(Math.toRadians(angleReprAxis + 90 + AXIS_ARROW_ANGLE)) * axisArrowLength),
-                    paintAxis);
-            canvas.drawLine(
-                    pinXofAxis, pinYofAxis,
-                    pinXofAxis + (int) (Math.cos(Math.toRadians(angleReprAxis - 90 - AXIS_ARROW_ANGLE)) * axisArrowLength),
-                    pinYofAxis + (int) (Math.sin(Math.toRadians(angleReprAxis - 90 - AXIS_ARROW_ANGLE)) * axisArrowLength),
-                    paintAxis);
         }
     }
 }
