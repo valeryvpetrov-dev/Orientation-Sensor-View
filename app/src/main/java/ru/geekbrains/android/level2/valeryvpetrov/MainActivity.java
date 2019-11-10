@@ -5,7 +5,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements MainView {
+
+    @BindView(R.id.orientation_x_axis) TextView textOrientationXAxis;
+    @BindView(R.id.orientation_y_axis) TextView textOrientationYAxis;
+    @BindView(R.id.orientation_z_axis) TextView textOrientationZAxis;
+    @BindView(R.id.gyro_x_axis) TextView textGyroXAxis;
+    @BindView(R.id.gyro_y_axis) TextView textGyroYAxis;
+    @BindView(R.id.gyro_z_axis) TextView textGyroZAxis;
+    @BindView(R.id.acceleration_x_axis) TextView textAccelerationXAxis;
+    @BindView(R.id.acceleration_y_axis) TextView textAccelerationYAxis;
+    @BindView(R.id.acceleration_z_axis) TextView textAccelerationZAxis;
+
+    @BindView(R.id.view_orientation) CoordinateFrameView coordinateFrameView;
 
     private MainPresenter presenter;
 
@@ -13,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         presenter = new MainPresenter(this);
         presenter.initSensors(this);
@@ -32,24 +48,24 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void updateOrientationSensorDataChanged(float xAngle, float yAngle, float zAngle) {
-        ((TextView) findViewById(R.id.orientation_x_axis)).setText(String.valueOf(xAngle));
-        ((TextView) findViewById(R.id.orientation_y_axis)).setText(String.valueOf(yAngle));
-        ((TextView) findViewById(R.id.orientation_z_axis)).setText(String.valueOf(zAngle));
+        textOrientationXAxis.setText(String.valueOf(xAngle));
+        textOrientationYAxis.setText(String.valueOf(yAngle));
+        textOrientationZAxis.setText(String.valueOf(zAngle));
 
-        ((CoordinateFrameView) findViewById(R.id.view_orientation)).setAngleXAxis(xAngle);
+        coordinateFrameView.setAngleXAxis(xAngle);
     }
 
     @Override
     public void updateGyroSensorDataChanged(float xRotationRate, float yRotationRate, float zRotationRate) {
-        ((TextView) findViewById(R.id.gyro_x_axis)).setText(String.valueOf(xRotationRate));
-        ((TextView) findViewById(R.id.gyro_y_axis)).setText(String.valueOf(yRotationRate));
-        ((TextView) findViewById(R.id.gyro_z_axis)).setText(String.valueOf(zRotationRate));
+        textGyroXAxis.setText(String.valueOf(xRotationRate));
+        textGyroYAxis.setText(String.valueOf(yRotationRate));
+        textGyroZAxis.setText(String.valueOf(zRotationRate));
     }
 
     @Override
     public void updateAccelerationSensorDataChanged(float xAcceleration, float yAcceleration, float zAcceleration) {
-        ((TextView) findViewById(R.id.acceleration_x_axis)).setText(String.valueOf(xAcceleration));
-        ((TextView) findViewById(R.id.acceleration_y_axis)).setText(String.valueOf(yAcceleration));
-        ((TextView) findViewById(R.id.acceleration_z_axis)).setText(String.valueOf(zAcceleration));
+        textAccelerationXAxis.setText(String.valueOf(xAcceleration));
+        textAccelerationYAxis.setText(String.valueOf(yAcceleration));
+        textAccelerationZAxis.setText(String.valueOf(zAcceleration));
     }
 }
