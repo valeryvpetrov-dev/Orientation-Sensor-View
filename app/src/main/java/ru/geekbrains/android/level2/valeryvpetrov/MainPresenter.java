@@ -53,12 +53,23 @@ public class MainPresenter {
     private void initSensorsListeners() {
         if (sensorOrientationEvenListener == null) {
             sensorOrientationEvenListener = new SensorEventListener() {
+                /**
+                 * Sensor.TYPE_ORIENTATION event description:
+                 * https://developer.android.com/reference/android/hardware/SensorEvent#sensor.type_orientation-:
+                 *
+                 * @param sensorEvent: Sensor.TYPE_ORIENTATION event
+                 */
                 @Override
                 public void onSensorChanged(SensorEvent sensorEvent) {
-                    // round value to 2 decimal points
-                    float xAngle = roundFloat(sensorEvent.values[0]);
-                    float yAngle = roundFloat(sensorEvent.values[1]);
-                    float zAngle = roundFloat(sensorEvent.values[2]);
+                    // Azimuth, angle between the magnetic north direction and the y-axis,
+                    // around the z-axis (0 to 359). 0=North, 90=East, 180=South, 270=West
+                    float zAngle = roundFloat(sensorEvent.values[0]);
+                    // Pitch, rotation around x-axis (-180 to 180), with positive values
+                    // when the z-axis moves toward the y-axis.
+                    float xAngle = roundFloat(sensorEvent.values[1]);
+                    // Roll, rotation around the y-axis (-90 to 90)
+                    // increasing as the device moves clockwise.
+                    float yAngle = roundFloat(sensorEvent.values[2]);
 
                     view.updateOrientationSensorDataChanged(xAngle, yAngle, zAngle);
                 }
@@ -104,6 +115,12 @@ public class MainPresenter {
         }
     }
 
+    /**
+     * Rounds value to 2 decimal points
+     *
+     * @param value: float to round
+     * @return float rounded to 2 decimal points
+     */
     private float roundFloat(float value) {
         return (float) Math.round(value * 100) / 100;
     }

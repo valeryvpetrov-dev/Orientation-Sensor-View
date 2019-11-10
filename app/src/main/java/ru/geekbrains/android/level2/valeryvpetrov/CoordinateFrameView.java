@@ -13,7 +13,7 @@ import android.view.View;
 public class CoordinateFrameView extends View {
     /**
      * Android View class for representation of coordinate frame.
-     * ! Works only with X axis rotation.
+     * ! Works only with Z axis rotation.
      */
     private int axisLength = 300;
     private int axisStrokeWidth = 6;
@@ -67,13 +67,13 @@ public class CoordinateFrameView extends View {
 
     private void initPaints() {
         paintXAxis = new Paint();
-        configureAxisPaint(paintXAxis, Color.RED);
+        configureAxisPaint(paintXAxis, Color.GREEN);
 
         paintYAxis = new Paint();
-        configureAxisPaint(paintYAxis, Color.GREEN);
+        configureAxisPaint(paintYAxis, Color.BLUE);
 
         paintZAxis = new Paint();
-        configureAxisPaint(paintZAxis, Color.BLUE);
+        configureAxisPaint(paintZAxis, Color.RED);
 
         paintBackground = new Paint();
         paintBackground.setAlpha(50);
@@ -148,29 +148,29 @@ public class CoordinateFrameView extends View {
                 paintAxis);
     }
 
-    public void setAngleXAxis(float angleXAxis) {
-        rebuildXPath(angleXAxis, 0, 0);
-        rebuildYPath(angleXAxis, 0, 0);
-        rebuildZPath(angleXAxis, 0, 0);
+    public void setAngleZAxis(float angleZAxis) {
+        rebuildXPath(0, 0, angleZAxis);
+        rebuildYPath(0, 0, angleZAxis);
+        rebuildZPath(0, 0, angleZAxis);
         invalidate();
     }
 
-    private void rebuildXPath(float angleXAxis, float angleYAxis, float angleZAxis) {
-        if (pathXAxis == null)
-            pathXAxis = new Path();
+    private void rebuildZPath(float angleXAxis, float angleYAxis, float angleZAxis) {
+        if (pathZAxis == null)
+            pathZAxis = new Path();
 
-        pathXAxis.reset();
+        pathZAxis.reset();
 
-        if (angleYAxis == 0 && angleZAxis == 0) {   // rotation about X axis
-            this.angleReprXAxis = 0;
-            pinXofXAxis = centerScreenX;
-            pinYofXAxis = centerScreenY;
+        if (angleXAxis == 0 && angleYAxis == 0) {   // rotation about Z axis
+            this.angleReprZAxis = 0;
+            pinXofZAxis = centerScreenX;
+            pinYofZAxis = centerScreenY;
 
-            pathXAxis.moveTo(centerScreenX, centerScreenY);
-            pathXAxis.lineTo(pinXofXAxis, pinYofXAxis);
+            pathZAxis.moveTo(centerScreenX, centerScreenY);
+            pathZAxis.lineTo(pinXofZAxis, pinYofZAxis);
         }
 
-        pathXAxis.close();
+        pathZAxis.close();
     }
 
     private void rebuildYPath(float angleXAxis, float angleYAxis, float angleZAxis) {
@@ -179,14 +179,14 @@ public class CoordinateFrameView extends View {
 
         pathYAxis.reset();
 
-        if (angleYAxis == 0 && angleZAxis == 0) {   // rotation about X axis
-            this.angleReprYAxis = angleXAxis;
+        if (angleXAxis == 0 && angleYAxis == 0) {   // rotation about Z axis
+            this.angleReprYAxis = angleZAxis;
 
             pinXofYAxis = centerScreenX
-                    + (int) (Math.cos(Math.toRadians(angleXAxis))
+                    + (int) (Math.cos(Math.toRadians(angleZAxis) - Math.PI / 2)
                     * axisLength);
             pinYofYAxis = centerScreenY
-                    + (int) (Math.sin(Math.toRadians(angleXAxis))
+                    + (int) (Math.sin(Math.toRadians(angleZAxis) - Math.PI / 2)
                     * axisLength);
 
             pathYAxis.moveTo(centerScreenX, centerScreenY);
@@ -196,27 +196,27 @@ public class CoordinateFrameView extends View {
         pathYAxis.close();
     }
 
-    private void rebuildZPath(float angleXAxis, float angleYAxis, float angleZAxis) {
-        if (pathZAxis == null)
-            pathZAxis = new Path();
+    private void rebuildXPath(float angleXAxis, float angleYAxis, float angleZAxis) {
+        if (pathXAxis == null)
+            pathXAxis = new Path();
 
-        pathZAxis.reset();
+        pathXAxis.reset();
 
-        if (angleYAxis == 0 && angleZAxis == 0) {   // rotation about X axis
-            this.angleReprZAxis = angleXAxis + 90;
+        if (angleXAxis == 0 && angleYAxis == 0) {   // rotation about Z axis
+            this.angleReprXAxis = angleZAxis - 90;
 
-            pinXofZAxis = centerScreenX
-                    + (int) (Math.cos(Math.toRadians(angleXAxis) + Math.PI / 2)
+            pinXofXAxis = centerScreenX
+                    + (int) (Math.cos(Math.toRadians(angleZAxis))
                     * axisLength);
-            pinYofZAxis = centerScreenY
-                    + (int) (Math.sin(Math.toRadians(angleXAxis) + Math.PI / 2)
+            pinYofXAxis = centerScreenY
+                    + (int) (Math.sin(Math.toRadians(angleZAxis))
                     * axisLength);
 
-            pathZAxis.moveTo(centerScreenX, centerScreenY);
-            pathZAxis.lineTo(pinXofZAxis, pinYofZAxis);
+            pathXAxis.moveTo(centerScreenX, centerScreenY);
+            pathXAxis.lineTo(pinXofXAxis, pinYofXAxis);
         }
 
-        pathZAxis.close();
+        pathXAxis.close();
     }
 
     private void drawAxisArrow(Canvas canvas,

@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         textOrientationYAxis.setText(String.valueOf(yAngle));
         textOrientationZAxis.setText(String.valueOf(zAngle));
 
-        coordinateFrameView.setAngleXAxis(xAngle);
+        // trigger drawing of rotation around Z axis only
+        coordinateFrameView.setAngleZAxis(zAngle);
     }
 
     @Override
