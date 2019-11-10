@@ -1,5 +1,7 @@
 package ru.geekbrains.android.level2.valeryvpetrov;
 
+import android.content.Context;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -8,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements MainContract.View {
 
     @BindView(R.id.orientation_x_axis) TextView textOrientationXAxis;
     @BindView(R.id.orientation_y_axis) TextView textOrientationYAxis;
@@ -30,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        presenter = new MainPresenter(this);
-        presenter.initSensors(this);
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        presenter = new MainPresenter(this, sensorManager);
     }
 
     @Override

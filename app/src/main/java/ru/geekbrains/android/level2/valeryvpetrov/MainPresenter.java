@@ -6,9 +6,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-public class MainPresenter {
+public class MainPresenter implements MainContract.Presenter {
 
-    private MainView view;
+    private MainContract.View view;
 
     private SensorManager sensorManager;
     private Sensor sensorOrientation;
@@ -19,17 +19,10 @@ public class MainPresenter {
     private SensorEventListener sensorGyroscopeEvenListener;
     private SensorEventListener sensorAccelerometerEvenListener;
 
-    public MainPresenter(MainView view) {
+    public MainPresenter(MainContract.View view, SensorManager sensorManager) {
         this.view = view;
-    }
-
-    public void initSensors(Context context) {
-        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        sensorOrientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-        sensorGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        initSensorsListeners();
+        this.sensorManager = sensorManager;
+        initSensors();
     }
 
     public void registerSensorsListeners() {
@@ -48,6 +41,14 @@ public class MainPresenter {
         sensorManager.unregisterListener(sensorOrientationEvenListener);
         sensorManager.unregisterListener(sensorGyroscopeEvenListener);
         sensorManager.unregisterListener(sensorAccelerometerEvenListener);
+    }
+
+    private void initSensors() {
+        sensorOrientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        sensorGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        initSensorsListeners();
     }
 
     private void initSensorsListeners() {
