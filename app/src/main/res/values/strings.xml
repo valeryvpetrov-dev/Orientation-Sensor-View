@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">GeekBrains.Android.Level-2</string>
-
-    <string name="activity_main_label">Lesson 2</string>
+    <string name="app_name">Orientation Sensor View</string>
 
     <string name="content_orientation_title">Orientation (degrees)</string>
     <string name="content_gyroscope_title">Gyroscope (rad/s)</string>

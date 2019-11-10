@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "ru.geekbrains.android.level2.valeryvpetrov"
+        applicationId "ru.geekbrains.android.level2.valeryvpetrov.orientationsensorview"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
