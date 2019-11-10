@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorXAxis">#4CAF50</color>
+    <color name="colorYAxis">#3F51B5</color>
+    <color name="colorZAxis">#F44336</color>
 </resources>

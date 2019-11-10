@@ -1,6 +1,7 @@
 package ru.geekbrains.android.level2.valeryvpetrov;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,15 +11,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * Android View class for representation of coordinate frame.
+ * ! Works only with Z axis rotation.
+ */
 public class CoordinateFrameView extends View {
-    /**
-     * Android View class for representation of coordinate frame.
-     * ! Works only with Z axis rotation.
-     */
-    private int axisLength = 300;
-    private int axisStrokeWidth = 6;
+    private int axisLength;
+    private int axisStrokeWidth;
 
-    private int axisTextSize = 50;
+    private int axisTextSize;
     private int axisTextVOffset = (int) (axisTextSize * 1.5);
     private int axisTextHOffset = axisLength;
 
@@ -50,33 +51,38 @@ public class CoordinateFrameView extends View {
     private int viewHeight;
     private Paint paintBackground;
 
-    public CoordinateFrameView(Context context) {
-        super(context);
-        initPaints();
-    }
-
     public CoordinateFrameView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initPaints();
+        initPaints(attrs);
     }
 
     public CoordinateFrameView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initPaints();
+        initPaints(attrs);
     }
 
-    private void initPaints() {
+    private void initPaints(AttributeSet attrs) {
+        TypedArray attrsArray = getContext().obtainStyledAttributes(attrs, R.styleable.CoordinateFrameView);
+        axisLength = attrsArray.getInteger(R.styleable.CoordinateFrameView_axisLength, 300);
+        axisStrokeWidth = attrsArray.getInteger(R.styleable.CoordinateFrameView_axisStrokeWidth, 6);
+        axisTextSize = attrsArray.getInteger(R.styleable.CoordinateFrameView_axisTextSize, 50);
+        int backgroundAlpha = attrsArray.getInteger(R.styleable.CoordinateFrameView_backgroundAlpha, 50);
+        int colorXAxis = attrsArray.getColor(R.styleable.CoordinateFrameView_colorXAxis, Color.GREEN);
+        int colorYAxis = attrsArray.getColor(R.styleable.CoordinateFrameView_colorYAxis, Color.BLUE);
+        int colorZAxis = attrsArray.getColor(R.styleable.CoordinateFrameView_colorZAxis, Color.RED);
+        attrsArray.recycle();
+
         paintXAxis = new Paint();
-        configureAxisPaint(paintXAxis, Color.GREEN);
+        configureAxisPaint(paintXAxis, colorXAxis);
 
         paintYAxis = new Paint();
-        configureAxisPaint(paintYAxis, Color.BLUE);
+        configureAxisPaint(paintYAxis, colorYAxis);
 
         paintZAxis = new Paint();
-        configureAxisPaint(paintZAxis, Color.RED);
+        configureAxisPaint(paintZAxis, colorZAxis);
 
         paintBackground = new Paint();
-        paintBackground.setAlpha(50);
+        paintBackground.setAlpha(backgroundAlpha);
     }
 
     private void configureAxisPaint(Paint paintAxis, int colorAxis) {

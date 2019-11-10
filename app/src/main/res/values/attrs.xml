@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CoordinateFrameView">
+        <attr name="axisLength" format="integer" />
+        <attr name="axisStrokeWidth" format="integer" />
+        <attr name="axisTextSize" format="integer" />
+        <attr name="colorXAxis" format="color" />
+        <attr name="colorYAxis" format="color" />
+        <attr name="colorZAxis" format="color" />
+        <attr name="backgroundAlpha" format="integer" />
+    </declare-styleable>
+</resources>
